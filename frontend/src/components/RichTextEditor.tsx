@@ -20,7 +20,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
       Link.configure({ openOnClick: false }),
     ],
     content,
-    immediatelyRender: false,
+    immediatelyRender: false, // Disable immediate rendering to prevent SSR hydration mismatch
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },

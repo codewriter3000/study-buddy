@@ -1,4 +1,5 @@
 import os
+from contextlib import asynccontextmanager
 from typing import Optional
 import httpx
 from fastapi import FastAPI, HTTPException
@@ -11,7 +12,17 @@ load_dotenv()
 COUCHDB_URL = os.getenv("COUCHDB_URL", "http://admin:password@localhost:5984")
 DB_NAME = "flashcards"
 
-app = FastAPI(title="Study Buddy API")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with httpx.AsyncClient() as client:
+        response = await client.put(f"{COUCHDB_URL}/{DB_NAME}")
+        if response.status_code not in (201, 412):
+            raise RuntimeError(f"Failed to create database: {response.text}")
+    yield
+
+
+app = FastAPI(title="Study Buddy API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,14 +52,6 @@ class FlashcardUpdate(BaseModel):
     definition: str
     image_url: Optional[str] = None
     rev: str
-
-
-@app.on_event("startup")
-async def startup_event():
-    async with httpx.AsyncClient() as client:
-        response = await client.put(f"{COUCHDB_URL}/{DB_NAME}")
-        if response.status_code not in (201, 412):
-            raise RuntimeError(f"Failed to create database: {response.text}")
 
 
 @app.get("/api/health")
