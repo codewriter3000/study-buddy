@@ -18,7 +18,6 @@ export default function FlashcardCard({ flashcard, onDelete }: FlashcardCardProp
     text.length > max ? text.slice(0, max) + '…' : text;
 
   const getDefinitionPreview = () => {
-    if (typeof window === 'undefined') return '';
     const plain = stripHtml(flashcard.definition);
     return truncate(plain, 120);
   };

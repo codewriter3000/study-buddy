@@ -23,13 +23,13 @@ export interface UpdateFlashcardInput {
 
 export async function getFlashcards(): Promise<Flashcard[]> {
   const res = await fetch(`${API_BASE}/api/flashcards`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('Failed to fetch flashcards');
+  if (!res.ok) throw new Error(`Failed to fetch flashcards: ${res.status} ${res.statusText}`);
   return res.json();
 }
 
 export async function getFlashcard(id: string): Promise<Flashcard> {
   const res = await fetch(`${API_BASE}/api/flashcards/${id}`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('Failed to fetch flashcard');
+  if (!res.ok) throw new Error(`Failed to fetch flashcard: ${res.status} ${res.statusText}`);
   return res.json();
 }
 
@@ -39,7 +39,7 @@ export async function createFlashcard(data: CreateFlashcardInput): Promise<Flash
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error('Failed to create flashcard');
+  if (!res.ok) throw new Error(`Failed to create flashcard: ${res.status} ${res.statusText}`);
   return res.json();
 }
 
@@ -49,7 +49,7 @@ export async function updateFlashcard(id: string, data: UpdateFlashcardInput): P
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error('Failed to update flashcard');
+  if (!res.ok) throw new Error(`Failed to update flashcard: ${res.status} ${res.statusText}`);
   return res.json();
 }
 
@@ -57,5 +57,5 @@ export async function deleteFlashcard(id: string, rev: string): Promise<void> {
   const res = await fetch(`${API_BASE}/api/flashcards/${id}?rev=${encodeURIComponent(rev)}`, {
     method: 'DELETE',
   });
-  if (!res.ok) throw new Error('Failed to delete flashcard');
+  if (!res.ok) throw new Error(`Failed to delete flashcard: ${res.status} ${res.statusText}`);
 }
