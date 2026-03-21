@@ -10,9 +10,8 @@ interface FlashcardCardProps {
 
 export default function FlashcardCard({ flashcard, onDelete }: FlashcardCardProps) {
   const stripHtml = (html: string) => {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
+    // Use a regex-based approach to avoid DOM manipulation during render
+    return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   };
 
   const truncate = (text: string, max: number) =>

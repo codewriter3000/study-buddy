@@ -84,7 +84,7 @@ export default function StudyPage() {
       </div>
 
       {/* Card */}
-      <StudyCard key={currentCard.id} flashcard={currentCard} />
+      <StudyCard flashcard={currentCard} />
 
       {/* Navigation */}
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
