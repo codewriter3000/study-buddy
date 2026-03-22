@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #0c0e16;
+  --color-surface-container-low: #10131c;
+  --color-surface-container: #161923;
+  --color-surface-container-high: #1c1f2c;
+  --color-surface-container-highest: #212534;
+  --color-surface-variant: #2a2d3e;
+  --color-on-surface: #e2e4f9;
+  --color-on-surface-variant: #9b9ec8;
+  --color-primary: #ff6c95;
+  --color-primary-container: #fd3e80;
+  --color-on-primary: #ffffff;
+  --color-secondary: #4ecdc4;
+  --color-secondary-container: #1a3a38;
+  --color-on-secondary-container: #4ecdc4;
+  --color-secondary-fixed-dim: #2a4a47;
+  --color-tertiary: #a78bfa;
+  --color-outline-variant: rgba(155, 158, 200, 0.15);
+
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #0c0e16;
+  color: #e2e4f9;
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #10131c;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2d3e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9b9ec8;
+}
+
+/* TipTap editor styles */
+.tiptap-editor {
+  min-height: 150px;
+}
+.tiptap-editor .ProseMirror {
+  outline: none;
+  min-height: 150px;
+  padding: 0.75rem;
+}
+.tiptap-editor .ProseMirror p {
+  margin: 0 0 0.5rem;
+}
+.tiptap-editor .ProseMirror ul,
+.tiptap-editor .ProseMirror ol {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+.tiptap-editor .ProseMirror strong {
+  font-weight: 700;
+}
+.tiptap-editor .ProseMirror em {
+  font-style: italic;
+}
+.tiptap-editor .ProseMirror a {
+  color: #4ecdc4;
+  text-decoration: underline;
+}
+.tiptap-editor .ProseMirror img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+  color: #9b9ec8;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
